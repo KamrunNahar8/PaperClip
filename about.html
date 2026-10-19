@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- SEO Meta Tags -->
+    <title>About | PaperClip - Professional Academic Tools</title>
+    <meta name="description" content="Learn about PaperClip and its development team: Kamrun Nahar Kamona, Prionti Maliha, and Md Nurzaman Hossain. A privacy-first tool built for Daffodil International University students.">
+    <meta name="author" content="Kamrun Nahar Kamona, Prionti Maliha, Md Nurzaman Hossain">
+    
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/png" href="Logos/PaperClip-Logo.png">
+    <link rel="apple-touch-icon" href="Logos/PaperClip-Logo.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        /** Pre-render theme synchronization to mitigate FOUC (Flash of Unstyled Content). */
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || !savedTheme) {
+                document.documentElement.classList.add('dark-theme');
+            } else {
+                document.documentElement.classList.remove('dark-theme');
+            }
+        })();
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <div class="scroll-progress"></div>
+    
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 0.75rem;">
+                    <img src="Logos/PaperClip-Logo.png" alt="PaperClip" class="logo-img">
+                    <span class="logo-text">PaperClip</span>
+                </a>
+            </div>
+            
+            <nav class="nav desktop-nav">
+                <a href="index.html" class="nav-link" id="home-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="cgpa.html" class="nav-link" id="cgpa-link">
+                    <i class="fas fa-calculator"></i> CGPA
+                </a>
+                <a href="attendance.html" class="nav-link" id="attendance-link">
+                    <i class="fas fa-user-check"></i> Attendance
+                </a>
+                <a href="analyze.html" class="nav-link" id="analyze-link">
+                    <i class="fas fa-robot"></i> Analyze
+                </a>
+
+                <a href="about.html" class="nav-link active" id="about-link">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
+                <a href="how-it-works.html" class="nav-link" id="how-link">
+                    <i class="fas fa-question-circle"></i> How It Works
+                </a>
+                <a href="https://studentportal.diu.edu.bd/" target="_blank" class="nav-link">
+                    <i class="fas fa-graduation-cap"></i> Portal
+                </a>
+                <a href="https://elearn.daffodilvarsity.edu.bd/" target="_blank" class="nav-link">
+                    <i class="fas fa-chalkboard-teacher"></i> BLC
+                </a>
+            </nav>
+            
+            <div class="header-controls">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                    <i class="fas fa-sun" id="theme-icon"></i>
+                </button>
+                <button class="hamburger-menu" onclick="toggleMobileMenu()" title="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <nav class="mobile-nav" id="mobile-nav">
+            <a href="index.html" class="mobile-nav-link" id="mobile-home-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="cgpa.html" class="mobile-nav-link" id="mobile-cgpa-link">
+                <i class="fas fa-calculator"></i> CGPA
+            </a>
+            <a href="attendance.html" class="mobile-nav-link" id="mobile-attendance-link">
+                <i class="fas fa-user-check"></i> Attendance
+            </a>
+            <a href="analyze.html" class="mobile-nav-link" id="mobile-analyze-link">
+                <i class="fas fa-robot"></i> Analyze
+            </a>
+
+            <a href="about.html" class="mobile-nav-link active" id="mobile-about-link">
+                <i class="fas fa-info-circle"></i> About
+            </a>
+            <a href="how-it-works.html" class="mobile-nav-link" id="mobile-how-link">
+                <i class="fas fa-question-circle"></i> How It Works
+            </a>
+            <a href="https://studentportal.diu.edu.bd/" target="_blank" class="mobile-nav-link">
+                <i class="fas fa-graduation-cap"></i> Portal
+            </a>
+            <a href="https://elearn.daffodilvarsity.edu.bd/" target="_blank" class="mobile-nav-link">
+                <i class="fas fa-chalkboard-teacher"></i> BLC
+            </a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Professional Hero Section -->
+        <section class="about-hero reveal">
+            <span class="badge">The Story Behind the Project</span>
+            <h1>Bridging the gap between <span>Academic Rigor</span> and <span>Efficiency</span>.</h1>
+            <p class="hero-text">PaperClip was born from a simple observation: students spend more time formatting documents than actually learning. We're here to change that.</p>
+        </section>
+
+        <!-- Developer Team Section -->
+        <section class="team-section reveal">
+            <div class="team-header">
+                <span class="badge">Engineers & Creators</span>
+                <h2>Meet the <span>Development Team</span></h2>
+                <p>Software Engineering students at Daffodil International University dedicated to building practical, privacy-first digital solutions with clean architecture and real-world impact.</p>
+            </div>
+
+            <div class="team-grid">
+                <!-- Member 1: Frontend -->
+                <div class="team-card reveal-left">
+                    <span class="team-badge"><i class="fas fa-layer-group"></i> Member 1</span>
+                    <h3>Kamrun Nahar Kamona</h3>
+                    <div class="team-role">Frontend Developer</div>
+                    <div class="team-dept">
+                        <i class="fas fa-university"></i> Software Engineering, DIU
+                    </div>
+                    <p class="team-desc">Architected the UI/UX design system, mobile-first responsive interfaces, client-side dynamic theming, and intuitive form components for seamless student workflows.</p>
+                </div>
+
+                <!-- Member 2: Evaluation & Scoring Module -->
+                <div class="team-card reveal">
+                    <span class="team-badge"><i class="fas fa-clipboard-check"></i> Member 2</span>
+                    <h3>Prionti Maliha</h3>
+                    <div class="team-role">Evaluation & Scoring Module</div>
+                    <div class="team-dept">
+                        <i class="fas fa-university"></i> Software Engineering, DIU
+                    </div>
+                    <p class="team-desc">Engineered the academic rubrics, dynamic evaluation criteria tables across document types, DIU 4.00 CGPA calculation engine, and attendance planning rules.</p>
+                </div>
+
+                <!-- Member 3: Backend Development & System Management -->
+                <div class="team-card reveal-right">
+                    <span class="team-badge"><i class="fas fa-server"></i> Member 3</span>
+                    <h3>Md Nurzaman Hossain</h3>
+                    <div class="team-role">Backend Development & System Management</div>
+                    <div class="team-dept">
+                        <i class="fas fa-university"></i> Software Engineering, DIU
+                    </div>
+                    <p class="team-desc">Developed the local Express REST API architecture, faculty directory datasets, search endpoint optimization, PWA service worker caching, and system orchestration.</p>
+                </div>
+            </div>
+
+            <!-- Vision Card -->
+            <div class="vision-card reveal">
+                <div class="icon-box" style="margin-bottom: 1.5rem;"><i class="fas fa-bullseye" style="font-size: 2rem;"></i></div>
+                <h3 style="font-size: 1.75rem; margin-bottom: 1rem;">Our Vision</h3>
+                <p style="font-size: 1.05rem; line-height: 1.7; margin-bottom: 1.5rem;">To empower every student at DIU with a suite of professional tools that automate the administrative overhead of academic life, allowing them to focus entirely on their intellectual growth.</p>
+                <ul class="vision-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; list-style: none; padding: 0;">
+                    <li><i class="fas fa-check-circle" style="color: #34d399; margin-right: 0.5rem;"></i> Standardization across all departments.</li>
+                    <li><i class="fas fa-check-circle" style="color: #34d399; margin-right: 0.5rem;"></i> Privacy-first document processing.</li>
+                    <li><i class="fas fa-check-circle" style="color: #34d399; margin-right: 0.5rem;"></i> Open-source community driven.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Technical Excellence Section -->
+        <section class="tech-section reveal">
+            <div class="tech-header">
+                <h2>Built for <span>Performance</span></h2>
+                <p>Leveraging cutting-edge client-side technologies to ensure your data stays where it belongs—with you.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt" style="color: #10b981;"></i>
+                    <h3>Zero-Server Architecture</h3>
+                    <p>All PDF processing happens locally in your browser. No files are ever uploaded, ensuring 100% privacy.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-bolt" style="color: #f59e0b;"></i>
+                    <h3>Instant Synthesis</h3>
+                    <p>Powered by pdf-lib, generating high-resolution documents in milliseconds without any network latency.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-robot" style="color: #8b5cf6;"></i>
+                    <h3>AI-Enhanced Analysis</h3>
+                    <p>Intelligent copy-paste workflow for instant academic ratings and improvement tips via top-tier AI services.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-mobile-alt" style="color: #3b82f6;"></i>
+                    <h3>Adaptive Interface</h3>
+                    <p>A mobile-first design philosophy that works perfectly whether you're in the lab or on the go.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 PaperClip.</p>
+            <p>Developed by <strong>Kamrun Nahar Kamona</strong> &bull; <strong>Prionti Maliha</strong> &bull; <strong>Md Nurzaman Hossain</strong></p>
+            <div class="footer-links">
+                <a href="https://studentportal.diu.edu.bd/" target="_blank" class="pill portal">
+                    <i class="fas fa-graduation-cap"></i> Student Portal
+                </a>
+                <a href="https://elearn.daffodilvarsity.edu.bd/" target="_blank" class="pill blc">
+                    <i class="fas fa-chalkboard-teacher"></i> BLC
+                </a>
+                <a href="about.html" class="pill team">
+                    <i class="fas fa-users"></i> Development Team
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="js/navigation.js"></script>
+</body>
+</html>
