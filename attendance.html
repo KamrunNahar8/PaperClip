@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Attendance Planner - PaperClip</title>
+    <meta name="description" content="Calculate exactly how many classes you must attend to maintain a 75% attendance rate at DIU.">
+    <meta name="author" content="Kamrun Nahar Kamona, Prionti Maliha, Md Nurzaman Hossain">
+    
+    <link rel="icon" type="image/png" href="Logos/PaperClip-Logo.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || !savedTheme) {
+                document.documentElement.classList.add('dark-theme');
+            } else {
+                document.documentElement.classList.remove('dark-theme');
+            }
+        })();
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <div class="scroll-progress"></div>
+    
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 0.75rem;">
+                    <img src="Logos/PaperClip-Logo.png" alt="PaperClip" class="logo-img">
+                    <span class="logo-text">PaperClip</span>
+                </a>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="nav desktop-nav">
+                <a href="index.html" class="nav-link" id="home-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="cgpa.html" class="nav-link" id="cgpa-link">
+                    <i class="fas fa-calculator"></i> CGPA
+                </a>
+                <a href="attendance.html" class="nav-link active" id="attendance-link">
+                    <i class="fas fa-user-check"></i> Attendance
+                </a>
+                <a href="analyze.html" class="nav-link" id="analyze-link">
+                    <i class="fas fa-robot"></i> Analyze
+                </a>
+
+                <a href="about.html" class="nav-link" id="about-link">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
+                <a href="how-it-works.html" class="nav-link" id="how-link">
+                    <i class="fas fa-question-circle"></i> How It Works
+                </a>
+                <a href="https://studentportal.diu.edu.bd/" target="_blank" class="nav-link">
+                    <i class="fas fa-graduation-cap"></i> Portal
+                </a>
+                <a href="https://elearn.daffodilvarsity.edu.bd/" target="_blank" class="nav-link">
+                    <i class="fas fa-chalkboard-teacher"></i> BLC
+                </a>
+            </nav>
+            
+            <div class="header-controls">
+                <div class="theme-controls">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                        <i class="fas fa-sun" id="theme-icon"></i>
+                    </button>
+                </div>
+                
+                <!-- Mobile Hamburger Menu -->
+                <button class="hamburger-menu" onclick="toggleMobileMenu()" title="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <nav class="mobile-nav" id="mobile-nav">
+            <a href="index.html" class="mobile-nav-link" id="mobile-home-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="cgpa.html" class="mobile-nav-link" id="mobile-cgpa-link">
+                <i class="fas fa-calculator"></i> CGPA
+            </a>
+            <a href="attendance.html" class="mobile-nav-link active" id="mobile-attendance-link">
+                <i class="fas fa-user-check"></i> Attendance
+            </a>
+            <a href="analyze.html" class="mobile-nav-link" id="mobile-analyze-link">
+                <i class="fas fa-robot"></i> Analyze
+            </a>
+
+            <a href="about.html" class="mobile-nav-link" id="mobile-about-link">
+                <i class="fas fa-info-circle"></i> About
+            </a>
+            <a href="how-it-works.html" class="mobile-nav-link" id="mobile-how-link">
+                <i class="fas fa-question-circle"></i> How It Works
+            </a>
+        </nav>
+    </header>
+
+    <div class="container" style="margin-top: 50px; max-width: 800px; margin-left: auto; margin-right: auto; padding: 0 20px;">
+        <div class="text-center reveal" style="text-align: center; margin-bottom: 3rem;">
+            <h1 class="gradient-text">Attendance Planner</h1>
+            <p style="color: var(--text-muted);">Know exactly how many classes you MUST attend for a 75% rate.</p>
+        </div>
+
+        <div class="form-section reveal" style="padding: 3rem; text-align: center;">
+            <h3 style="margin-bottom: 2rem;"><i class="fas fa-calendar-alt" style="background: rgba(37, 99, 235, 0.1); color: #2563eb; width: 45px; height: 45px; display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; margin-right: 10px;"></i> Semester Planning</h3>
+            
+            <label style="display: block; margin-bottom: 1rem; font-size: 1.1rem;">Total Classes in the Course</label>
+            <input type="number" id="totalClasses" placeholder="e.g. 42" min="1" style="max-width: 300px; margin: 0 auto 2rem auto; font-size: 1.5rem; text-align: center; display: block; padding: 1rem;">
+
+            <button class="generate-btn" id="calculateBtn" style="width: fit-content; margin: 0 auto; padding: 1.25rem 3rem; font-size: 1.1rem; display: flex;">
+                <i class="fas fa-calculator" style="color: white !important;"></i> Calculate Attendance Goal
+            </button>
+        </div>
+
+        <!-- Result Section -->
+        <div id="resultArea" style="display: none; margin-top: 3rem;" class="reveal">
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 1px;">Attendance Goal</div>
+                <div id="comparisonDisplay" style="font-size: 4rem; font-weight: 800; color: #34d399; font-family: 'Plus Jakarta Sans', sans-serif;">0% > 75%</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div class="form-section" style="text-align: center; background: rgba(52, 211, 153, 0.1); border: 2px solid #34d399;">
+                    <div style="font-size: 0.9rem; color: #34d399; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem;">Must Attend</div>
+                    <div id="mustAttendDisplay" style="font-size: 4rem; font-weight: 800; color: #34d399;">0</div>
+                    <div style="font-size: 1rem; color: var(--text-primary); margin-top: 0.5rem;">Classes</div>
+                </div>
+
+                <div class="form-section" style="text-align: center; background: rgba(248, 113, 113, 0.1); border: 2px solid #f87171;">
+                    <div style="font-size: 0.9rem; color: #f87171; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem;">Can Skip</div>
+                    <div id="canSkipDisplay" style="font-size: 4rem; font-weight: 800; color: #f87171;">0</div>
+                    <div style="font-size: 1rem; color: var(--text-primary); margin-top: 0.5rem;">Classes</div>
+                </div>
+            </div>
+
+            <div class="form-section" style="margin-top: 2rem; text-align: center; background: var(--bg-tertiary);">
+                <p id="summaryText" style="font-size: 1.1rem; line-height: 1.6; color: var(--text-primary);"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer" style="margin-top: 100px;">
+        <div class="footer-content">
+            <p>&copy; 2026 PaperClip.</p>
+            <p>Developed by <strong>Kamrun Nahar Kamona</strong> &bull; <strong>Prionti Maliha</strong> &bull; <strong>Md Nurzaman Hossain</strong></p>
+            <div class="footer-links">
+                <a href="https://studentportal.diu.edu.bd/" target="_blank" class="pill portal">
+                    <i class="fas fa-graduation-cap"></i> Student Portal
+                </a>
+                <a href="https://elearn.daffodilvarsity.edu.bd/" target="_blank" class="pill blc">
+                    <i class="fas fa-chalkboard-teacher"></i> BLC
+                </a>
+                <a href="about.html" class="pill team">
+                    <i class="fas fa-users"></i> Development Team
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/attendance.js"></script>
+</body>
+</html>
