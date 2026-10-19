@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- SEO Meta Tags -->
+    <title>How It Works | PaperClip - Step-by-Step Guide</title>
+    <meta name="description" content="A professional guide on how to use PaperClip. Learn to generate assignment covers and merge PDFs in seconds.">
+    <meta name="author" content="Kamrun Nahar Kamona, Prionti Maliha, Md Nurzaman Hossain">
+    
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/png" href="Logos/PaperClip-Logo.png">
+    <link rel="apple-touch-icon" href="Logos/PaperClip-Logo.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        /** Pre-render theme synchronization to mitigate FOUC (Flash of Unstyled Content). */
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || !savedTheme) {
+                document.documentElement.classList.add('dark-theme');
+            } else {
+                document.documentElement.classList.remove('dark-theme');
+            }
+        })();
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <div class="scroll-progress"></div>
+    
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 0.75rem;">
+                    <img src="Logos/PaperClip-Logo.png" alt="PaperClip" class="logo-img">
+                    <span class="logo-text">PaperClip</span>
+                </a>
+            </div>
+            
+            <nav class="nav desktop-nav">
+                <a href="index.html" class="nav-link" id="home-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="cgpa.html" class="nav-link" id="cgpa-link">
+                    <i class="fas fa-calculator"></i> CGPA
+                </a>
+                <a href="attendance.html" class="nav-link" id="attendance-link">
+                    <i class="fas fa-user-check"></i> Attendance
+                </a>
+                <a href="analyze.html" class="nav-link" id="analyze-link">
+                    <i class="fas fa-robot"></i> Analyze
+                </a>
+
+                <a href="about.html" class="nav-link" id="about-link">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
+                <a href="how-it-works.html" class="nav-link active" id="how-link">
+                    <i class="fas fa-question-circle"></i> How It Works
+                </a>
+                <a href="https://studentportal.diu.edu.bd/" target="_blank" class="nav-link">
+                    <i class="fas fa-graduation-cap"></i> Portal
+                </a>
+                <a href="https://elearn.daffodilvarsity.edu.bd/" target="_blank" class="nav-link">
+                    <i class="fas fa-chalkboard-teacher"></i> BLC
+                </a>
+            </nav>
+            
+            <div class="header-controls">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                    <i class="fas fa-sun" id="theme-icon"></i>
+                </button>
+                <button class="hamburger-menu" onclick="toggleMobileMenu()" title="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <nav class="mobile-nav" id="mobile-nav">
+            <a href="index.html" class="mobile-nav-link" id="mobile-home-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="cgpa.html" class="mobile-nav-link" id="mobile-cgpa-link">
+                <i class="fas fa-calculator"></i> CGPA
+            </a>
+            <a href="attendance.html" class="mobile-nav-link" id="mobile-attendance-link">
+                <i class="fas fa-user-check"></i> Attendance
+            </a>
+            <a href="analyze.html" class="mobile-nav-link" id="mobile-analyze-link">
+                <i class="fas fa-robot"></i> Analyze
+            </a>
+
+            <a href="about.html" class="mobile-nav-link" id="mobile-about-link">
+                <i class="fas fa-info-circle"></i> About
+            </a>
+            <a href="how-it-works.html" class="mobile-nav-link active" id="mobile-how-link">
+                <i class="fas fa-question-circle"></i> How It Works
+            </a>
+            <a href="https://studentportal.diu.edu.bd/" target="_blank" class="mobile-nav-link">
+                <i class="fas fa-graduation-cap"></i> Portal
+            </a>
+            <a href="https://elearn.daffodilvarsity.edu.bd/" target="_blank" class="mobile-nav-link">
+                <i class="fas fa-chalkboard-teacher"></i> BLC
+            </a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Professional Hero Section -->
+        <section class="about-hero reveal">
+            <span class="badge">Comprehensive Guide</span>
+            <h1>Simple steps to <span>Perfect Submissions</span>.</h1>
+            <p class="hero-text">Master PaperClip in minutes. Our intuitive workflow is designed to save you time and ensure your university documents are perfectly formatted and ready for BLC.</p>
+        </section>
+
+        <!-- Process Timeline -->
+        <div class="process-timeline">
+            <!-- Step 1 -->
+            <div class="step-card reveal-left">
+                <div class="step-badge">Step 01</div>
+                <div class="step-icon"><i class="fas fa-edit"></i></div>
+                <div class="step-info">
+                    <h3>Configure Metadata</h3>
+                    <p>Input your academic credentials, course details, and instructor information. Choose your document type to load the correct DIU template. For <strong>Presentations</strong>, toggle between <strong>Single</strong> or <strong>Multi</strong> mode to support groups of up to 8 members.</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card reveal-right">
+                <div class="step-badge">Step 02</div>
+                <div class="step-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <div class="step-info">
+                    <h3>Asset Orchestration</h3>
+                    <p>Drag and drop your images or existing PDFs into the secure upload zone. Use the interactive grid to reorder pages with precision.</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card reveal-left">
+                <div class="step-badge">Step 03</div>
+                <div class="step-icon"><i class="fas fa-magic"></i></div>
+                <div class="step-info">
+                    <h3>One-Click Synthesis</h3>
+                    <p>Initiate the generation process. Our client-side engine will merge your assets and the cover page into a single, high-resolution PDF stream.</p>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card reveal-right">
+                <div class="step-badge">Step 04</div>
+                <div class="step-icon"><i class="fas fa-download"></i></div>
+                <div class="step-info">
+                    <h3>Preview & Export</h3>
+                    <p>Review the generated document in real-time. Once verified, export your professional PDF directly to your local device storage.</p>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card reveal-left">
+                <div class="step-badge">Step 05</div>
+                <div class="step-icon"><i class="fas fa-robot"></i></div>
+                <div class="step-info">
+                    <h3>AI Academic Analysis</h3>
+                    <p>Navigate to the Analyze page, copy the specialized analysis command, and use one of our integrated AI services to get a professional rating and feedback on your document.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="faq-grid-section reveal">
+            <div class="tech-header" style="text-align: center;">
+                <h2>Common <span>Questions</span></h2>
+                <p>Everything you need to know about our privacy-first PDF generation platform.</p>
+            </div>
+            <div class="features-grid">
+                <div class="faq-card">
+                    <div class="faq-icon"><i class="fas fa-file-image"></i></div>
+                    <h4>Supported Formats</h4>
+                    <p>We support high-resolution JPG, PNG, and PDF files. You can mix and match formats seamlessly in a single document.</p>
+                </div>
+                <div class="faq-card">
+                    <div class="faq-icon"><i class="fas fa-users"></i></div>
+                    <h4>Group Support</h4>
+                    <p>Our Presentation mode supports teams of up to 8 students. Simply switch to 'Multi' mode to generate a group cover page with everyone's details.</p>
+                </div>
+                <div class="faq-card">
+                    <div class="faq-icon"><i class="fas fa-compress"></i></div>
+                    <h4>Smart Compression</h4>
+                    <p>Our engine automatically optimizes image assets to ensure your final PDF is compact enough for BLC uploads without losing quality.</p>
+                </div>
+                <div class="faq-card">
+                    <div class="faq-icon"><i class="fas fa-robot"></i></div>
+                    <h4>AI Integration</h4>
+                    <p>Our Analysis tool provides pre-optimized prompts for third-party AI services, allowing you to get instant feedback on your assignments with a simple copy-paste workflow.</p>
+                </div>
+                <div class="faq-card">
+                    <div class="faq-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>Data Sovereignty</h4>
+                    <p>Your documents never leave your browser. All processing is 100% local, ensuring complete privacy and security.</p>
+                </div>
+                <div class="faq-card">
+                    <div class="faq-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h4>Cross-Platform</h4>
+                    <p>Built with a mobile-first philosophy, PaperClip works flawlessly on smartphones, tablets, and desktop workstations.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section-simple reveal">
+            <div class="cta-card">
+                <h2>Ready to start?</h2>
+                <p>Create your first professional DIU document today.</p>
+                <div class="cta-buttons">
+                    <a href="index.html" class="cta-button primary">Go to Home <i class="fas fa-rocket"></i></a>
+                    <a href="analyze.html" class="cta-button secondary" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border-color); color: var(--text-primary); padding: 12px 24px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; margin-left: 1rem;">Analyze using AI <i class="fas fa-robot"></i></a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 PaperClip.</p>
+            <p>Developed by <strong>Kamrun Nahar Kamona</strong> &bull; <strong>Prionti Maliha</strong> &bull; <strong>Md Nurzaman Hossain</strong></p>
+            <div class="footer-links">
+                <a href="https://studentportal.diu.edu.bd/" target="_blank" class="pill portal">
+                    <i class="fas fa-graduation-cap"></i> Student Portal
+                </a>
+                <a href="https://elearn.daffodilvarsity.edu.bd/" target="_blank" class="pill blc">
+                    <i class="fas fa-chalkboard-teacher"></i> BLC
+                </a>
+                <a href="about.html" class="pill team">
+                    <i class="fas fa-users"></i> Development Team
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="js/navigation.js"></script>
+</body>
+</html>
