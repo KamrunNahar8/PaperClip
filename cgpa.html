@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CGPA Calculator - PaperClip</title>
+    <meta name="description" content="Calculate your DIU CGPA course by course with official Daffodil International University grading scale. Local privacy-first academic tool.">
+    <meta name="author" content="Kamrun Nahar Kamona, Prionti Maliha, Md Nurzaman Hossain">
+    
+    <link rel="icon" type="image/png" href="Logos/PaperClip-Logo.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || !savedTheme) {
+                document.documentElement.classList.add('dark-theme');
+            } else {
+                document.documentElement.classList.remove('dark-theme');
+            }
+        })();
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Third-party Libraries -->
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <div class="scroll-progress"></div>
+    
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 0.75rem;">
+                    <img src="Logos/PaperClip-Logo.png" alt="PaperClip" class="logo-img">
+                    <span class="logo-text">PaperClip</span>
+                </a>
+            </div>
+            
+            <nav class="nav desktop-nav">
+                <a href="index.html" class="nav-link" id="home-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="cgpa.html" class="nav-link active" id="cgpa-link">
+                    <i class="fas fa-calculator"></i> CGPA
+                </a>
+                <a href="attendance.html" class="nav-link" id="attendance-link">
+                    <i class="fas fa-user-check"></i> Attendance
+                </a>
+                <a href="analyze.html" class="nav-link" id="analyze-link">
+                    <i class="fas fa-robot"></i> Analyze
+                </a>
+                <a href="about.html" class="nav-link" id="about-link">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
+                <a href="how-it-works.html" class="nav-link" id="how-link">
+                    <i class="fas fa-question-circle"></i> How It Works
+                </a>
+                <a href="https://studentportal.diu.edu.bd/" target="_blank" class="nav-link">
+                    <i class="fas fa-graduation-cap"></i> Portal
+                </a>
+            </nav>
+            
+            <div class="header-controls">
+                <div class="theme-controls">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                        <i class="fas fa-sun" id="theme-icon"></i>
+                    </button>
+                </div>
+                <!-- Mobile Hamburger Menu -->
+                <button class="hamburger-menu" onclick="toggleMobileMenu()" title="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <nav class="mobile-nav" id="mobile-nav">
+            <a href="index.html" class="mobile-nav-link" id="mobile-home-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="cgpa.html" class="mobile-nav-link active" id="mobile-cgpa-link">
+                <i class="fas fa-calculator"></i> CGPA
+            </a>
+            <a href="attendance.html" class="mobile-nav-link" id="mobile-attendance-link">
+                <i class="fas fa-user-check"></i> Attendance
+            </a>
+            <a href="analyze.html" class="mobile-nav-link" id="mobile-analyze-link">
+                <i class="fas fa-robot"></i> Analyze
+            </a>
+            <a href="about.html" class="mobile-nav-link" id="mobile-about-link">
+                <i class="fas fa-info-circle"></i> About
+            </a>
+            <a href="how-it-works.html" class="mobile-nav-link" id="mobile-how-link">
+                <i class="fas fa-question-circle"></i> How It Works
+            </a>
+        </nav>
+    </header>
+
+    <div class="container" style="margin-top: 15px; padding-bottom: 50px;">
+        <div class="text-center reveal" style="text-align: center; margin-bottom: 3rem;">
+            <h1 class="gradient-text">CGPA Calculator</h1>
+            <p style="color: var(--text-muted);">DIU standard grading scale (4.00) calculator. Private and automated.</p>
+        </div>
+
+        <div class="calculator-grid">
+            <!-- Calculator Core -->
+            <div class="reveal-left">
+                <div class="form-section">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h3 style="margin: 0;"><i class="fas fa-book-open"></i> Course List</h3>
+                        <button class="nav-link" id="addCourseBtn" style="background: var(--accent-soft); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.85rem; color: var(--accent-primary);">
+                            <i class="fas fa-plus"></i> Add Course
+                        </button>
+                    </div>
+                    
+                    <div class="course-header">
+                        <div>Course Name</div>
+                        <div>Credits</div>
+                        <div>Grade</div>
+                        <div></div>
+                    </div>
+                    <div id="courseContainer">
+                        <!-- Dynamic Rows Here -->
+                    </div>
+
+                    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                        <div style="font-weight: 600; color: var(--text-muted);">Progress Saved Automatically</div>
+                        <button class="nav-link" id="resetBtn" style="color: #f56565;">
+                            <i class="fas fa-trash-alt"></i> Clear Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Dashboard -->
+            <div class="reveal-right">
+                <div class="form-section result-sidebar">
+                    <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">Cumulative Result</div>
+                    <div id="cgpaDisplay" style="font-size: 4rem; font-weight: 800; color: var(--accent-primary); font-family: 'Plus Jakarta Sans', sans-serif;">0.00</div>
+                    <div id="gradeStatus" style="font-size: 1.1rem; font-weight: 600; margin-top: 0.5rem; color: var(--text-primary);">No Courses Added</div>
+                    
+                    <div style="margin-top: 2rem; display: grid; grid-template-columns: 1fr; gap: 1rem; text-align: left;">
+                        <div style="padding: 1rem; background: var(--bg-tertiary); border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Total Credits</div>
+                            <div id="totalCredits" style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">0</div>
+                        </div>
+                    </div>
+
+                    <button id="downloadPdfBtn" class="generate-btn" style="margin-top: 1.5rem; background: var(--accent-primary); font-size: 1rem; padding: 1rem;">
+                        <i class="fas fa-file-pdf"></i> Download PDF Report
+                    </button>
+
+                    <div style="margin-top: 2rem; text-align: left; padding: 1rem; background: var(--bg-tertiary); border-radius: 12px; border: 1px solid var(--border-color);">
+                        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.9rem;"><i class="fas fa-info-circle"></i> DIU Scale Tips</h4>
+                        <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.8rem; color: var(--text-muted); line-height: 1.6;">
+                            <li>Minimum CGPA for Good Standing: 2.00</li>
+                            <li>Grade Improvement only counts the best grade.</li>
+                            <li>A+ starts from 80 marks (4.00 pts).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 PaperClip.</p>
+            <p>Developed by <strong>Kamrun Nahar Kamona</strong> &bull; <strong>Prionti Maliha</strong> &bull; <strong>Md Nurzaman Hossain</strong></p>
+            <div class="footer-links">
+                <a href="https://studentportal.diu.edu.bd/" target="_blank" class="pill portal">
+                    <i class="fas fa-graduation-cap"></i> Student Portal
+                </a>
+                <a href="https://elearn.daffodilvarsity.edu.bd/" target="_blank" class="pill blc">
+                    <i class="fas fa-chalkboard-teacher"></i> BLC
+                </a>
+                <a href="about.html" class="pill team">
+                    <i class="fas fa-users"></i> Development Team
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/cgpa.js"></script>
+</body>
+</html>
