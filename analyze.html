@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- SEO Meta Tags -->
+    <title>Analyze using AI | PaperClip - Smart Academic Analysis</title>
+    <meta name="description" content="Use advanced AI tools like Gemini, Claude, and ChatGPT to analyze your generated PDF assignments. Get ratings and improvement tips instantly.">
+    <meta name="author" content="Kamrun Nahar Kamona, Prionti Maliha, Md Nurzaman Hossain">
+    
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/png" href="Logos/PaperClip-Logo.png">
+    <link rel="apple-touch-icon" href="Logos/PaperClip-Logo.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        /** Pre-render theme synchronization to mitigate FOUC (Flash of Unstyled Content). */
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || !savedTheme) {
+                document.documentElement.classList.add('dark-theme');
+            } else {
+                document.documentElement.classList.remove('dark-theme');
+            }
+        })();
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <div class="scroll-progress"></div>
+    
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 0.75rem;">
+                    <img src="Logos/PaperClip-Logo.png" alt="PaperClip" class="logo-img">
+                    <span class="logo-text">PaperClip</span>
+                </a>
+            </div>
+            
+            <nav class="nav desktop-nav">
+                <a href="index.html" class="nav-link" id="home-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="cgpa.html" class="nav-link" id="cgpa-link">
+                    <i class="fas fa-calculator"></i> CGPA
+                </a>
+                <a href="attendance.html" class="nav-link" id="attendance-link">
+                    <i class="fas fa-user-check"></i> Attendance
+                </a>
+                <a href="analyze.html" class="nav-link active" id="analyze-link">
+                    <i class="fas fa-robot"></i> Analyze
+                </a>
+
+                <a href="about.html" class="nav-link" id="about-link">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
+                <a href="how-it-works.html" class="nav-link" id="how-link">
+                    <i class="fas fa-question-circle"></i> How It Works
+                </a>
+                <a href="https://studentportal.diu.edu.bd/" target="_blank" class="nav-link">
+                    <i class="fas fa-graduation-cap"></i> Portal
+                </a>
+                <a href="https://elearn.daffodilvarsity.edu.bd/" target="_blank" class="nav-link">
+                    <i class="fas fa-chalkboard-teacher"></i> BLC
+                </a>
+            </nav>
+            
+            <div class="header-controls">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                    <i class="fas fa-sun" id="theme-icon"></i>
+                </button>
+                <button class="hamburger-menu" onclick="toggleMobileMenu()" title="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <nav class="mobile-nav" id="mobile-nav">
+            <a href="index.html" class="mobile-nav-link" id="mobile-home-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="cgpa.html" class="mobile-nav-link" id="mobile-cgpa-link">
+                <i class="fas fa-calculator"></i> CGPA
+            </a>
+            <a href="attendance.html" class="mobile-nav-link" id="mobile-attendance-link">
+                <i class="fas fa-user-check"></i> Attendance
+            </a>
+            <a href="analyze.html" class="mobile-nav-link active" id="mobile-analyze-link">
+                <i class="fas fa-robot"></i> Analyze
+            </a>
+
+            <a href="about.html" class="mobile-nav-link" id="mobile-about-link">
+                <i class="fas fa-info-circle"></i> About
+            </a>
+            <a href="how-it-works.html" class="mobile-nav-link" id="mobile-how-link">
+                <i class="fas fa-question-circle"></i> How It Works
+            </a>
+            <a href="https://studentportal.diu.edu.bd/" target="_blank" class="mobile-nav-link">
+                <i class="fas fa-graduation-cap"></i> Portal
+            </a>
+            <a href="https://elearn.daffodilvarsity.edu.bd/" target="_blank" class="mobile-nav-link">
+                <i class="fas fa-chalkboard-teacher"></i> BLC
+            </a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- AI Hero Section -->
+        <section class="hero-section reveal">
+            <span class="hero-subtitle">Smart Assignment Analysis</span>
+            <h1>Analyze with <span>AI Power</span></h1>
+            <p class="hero-description">Upload your generated PDF to an AI chatbot to get professional ratings and insightful feedback.</p>
+        </section>
+
+        <div class="ai-analyze-section">
+            <!-- Step 1: Copy Command -->
+            <div class="prompt-card reveal-left">
+                <div class="prompt-header">
+                    <h3><i class="fas fa-terminal" style="color: var(--accent-primary); margin-right: 0.5rem;"></i> Analysis Command</h3>
+                    <button class="copy-btn" id="copyPromptBtn">
+                        <i class="fas fa-copy"></i> Copy Command
+                    </button>
+                </div>
+                <div class="prompt-content" id="analysisPrompt">Please analyze this assignment PDF. Give it a rating out of 10 based on structure, content, and clarity. Also, provide specific suggestions on where I can improve.</div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 1rem;">
+                    <i class="fas fa-lightbulb" style="color: #f59e0b;"></i> Tip: Copy this command first, then click one of the AI buttons below to paste it along with your PDF.
+                </p>
+            </div>
+
+            <!-- Step 2: Choose AI Service -->
+            <div class="ai-grid reveal">
+                <a href="https://gemini.google.com" target="_blank" class="ai-btn gemini">
+                    <img src="Logos/google-gemini-icon.svg" alt="Gemini" class="ai-logo">
+                    <span>Gemini</span>
+                    <p>Ultra-fast AI</p>
+                </a>
+                <a href="https://claude.ai" target="_blank" class="ai-btn claude">
+                    <img src="Logos/claude-ai-icon.svg" alt="Claude" class="ai-logo">
+                    <span>Claude</span>
+                    <p>Analytical Insight</p>
+                </a>
+                <a href="https://chatgpt.com" target="_blank" class="ai-btn chatgpt">
+                    <img src="Logos/chatgpt-icon.svg" alt="ChatGPT" class="ai-logo">
+                    <span>ChatGPT</span>
+                    <p>Global Standard</p>
+                </a>
+                <a href="https://chat.deepseek.com" target="_blank" class="ai-btn deepseek">
+                    <img src="Logos/deepseek-logo-icon.svg" alt="DeepSeek" class="ai-logo">
+                    <span>DeepSeek</span>
+                    <p>Powerful Reasoning</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Command copied to clipboard!</div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 PaperClip.</p>
+            <p>Developed by <strong>Kamrun Nahar Kamona</strong> &bull; <strong>Prionti Maliha</strong> &bull; <strong>Md Nurzaman Hossain</strong></p>
+            <div class="footer-links">
+                <a href="https://studentportal.diu.edu.bd/" target="_blank" class="pill portal">
+                    <i class="fas fa-graduation-cap"></i> Student Portal
+                </a>
+                <a href="https://elearn.daffodilvarsity.edu.bd/" target="_blank" class="pill blc">
+                    <i class="fas fa-chalkboard-teacher"></i> BLC
+                </a>
+                <a href="about.html" class="pill team">
+                    <i class="fas fa-users"></i> Development Team
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const copyBtn = document.getElementById('copyPromptBtn');
+            const promptText = document.getElementById('analysisPrompt').innerText;
+            const toast = document.getElementById('toast');
+
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(promptText).then(() => {
+                    // Show toast
+                    toast.classList.add('show');
+                    
+                    // Change button state
+                    const originalHTML = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    copyBtn.style.background = 'var(--success)';
+                    
+                    setTimeout(() => {
+                        toast.classList.remove('show');
+                        copyBtn.innerHTML = originalHTML;
+                        copyBtn.style.background = '';
+                    }, 2500);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
