@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- SEO Meta Tags -->
-    <title>Analyze using AI | PaperClip - Smart Academic Analysis</title>
-    <meta name="description" content="Use advanced AI tools like Gemini, Claude, and ChatGPT to analyze your generated PDF assignments. Get ratings and improvement tips instantly.">
+    <title>Analyze & Score Academic PDF | PaperClip</title>
+    <meta name="description" content="Local open-source AI scoring, rubric evaluation, and recommendations for DIU assignments, lab reports, and lab tasks. Powered by local 3B LLM models with 100% privacy.">
     <meta name="author" content="Kamrun Nahar Kamona, Prionti Maliha, Md Nurzaman Hossain">
     
     <!-- Favicon & PWA -->
@@ -17,8 +17,9 @@
     
     <!-- External Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/scorer.css">
     <script>
-        /** Pre-render theme synchronization to mitigate FOUC (Flash of Unstyled Content). */
+        /** Pre-render theme synchronization to mitigate FOUC. */
         (function() {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark' || !savedTheme) {
@@ -30,6 +31,9 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Mozilla PDF.js for Client-Side PDF Text Extraction -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 <body>
     <div class="menu-overlay"></div>
@@ -58,7 +62,6 @@
                 <a href="analyze.html" class="nav-link active" id="analyze-link">
                     <i class="fas fa-robot"></i> Analyze
                 </a>
-
                 <a href="about.html" class="nav-link" id="about-link">
                     <i class="fas fa-info-circle"></i> About
                 </a>
@@ -84,23 +87,22 @@
         </div>
         
         <nav class="mobile-nav" id="mobile-nav">
-            <a href="index.html" class="mobile-nav-link" id="mobile-home-link">
+            <a href="index.html" class="mobile-nav-link">
                 <i class="fas fa-home"></i> Home
             </a>
-            <a href="cgpa.html" class="mobile-nav-link" id="mobile-cgpa-link">
+            <a href="cgpa.html" class="mobile-nav-link">
                 <i class="fas fa-calculator"></i> CGPA
             </a>
-            <a href="attendance.html" class="mobile-nav-link" id="mobile-attendance-link">
+            <a href="attendance.html" class="mobile-nav-link">
                 <i class="fas fa-user-check"></i> Attendance
             </a>
-            <a href="analyze.html" class="mobile-nav-link active" id="mobile-analyze-link">
+            <a href="analyze.html" class="mobile-nav-link active">
                 <i class="fas fa-robot"></i> Analyze
             </a>
-
-            <a href="about.html" class="mobile-nav-link" id="mobile-about-link">
+            <a href="about.html" class="mobile-nav-link">
                 <i class="fas fa-info-circle"></i> About
             </a>
-            <a href="how-it-works.html" class="mobile-nav-link" id="mobile-how-link">
+            <a href="how-it-works.html" class="mobile-nav-link">
                 <i class="fas fa-question-circle"></i> How It Works
             </a>
             <a href="https://studentportal.diu.edu.bd/" target="_blank" class="mobile-nav-link">
@@ -114,52 +116,132 @@
 
     <!-- Main Content -->
     <div class="container">
-        <!-- AI Hero Section -->
-        <section class="hero-section reveal">
-            <span class="hero-subtitle">Smart Assignment Analysis</span>
-            <h1>Analyze with <span>AI Power</span></h1>
-            <p class="hero-description">Upload your generated PDF to an AI chatbot to get professional ratings and insightful feedback.</p>
+        <!-- Hero Section -->
+        <section class="scorer-hero">
+            <h1>Academic <span>AI Scorer & Advisor</span></h1>
+            <p>Score your DIU assignments, lab reports, and lab tasks locally with open-source AI before final submission. Get rubric ratings out of 100, strengths, and actionable improvement suggestions.</p>
         </section>
 
-        <div class="ai-analyze-section">
-            <!-- Step 1: Copy Command -->
-            <div class="prompt-card reveal-left">
-                <div class="prompt-header">
-                    <h3><i class="fas fa-terminal" style="color: var(--accent-primary); margin-right: 0.5rem;"></i> Analysis Command</h3>
-                    <button class="copy-btn" id="copyPromptBtn">
-                        <i class="fas fa-copy"></i> Copy Command
-                    </button>
+        <!-- AI Engine Status Bar -->
+        <div class="ai-status-bar">
+            <div class="ai-status-indicator">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">AI Evaluation Engine Ready</span>
+            </div>
+            <input type="hidden" id="aiEndpoint" value="http://localhost:11434">
+        </div>
+
+        <!-- Input Section: Drag & Drop + Options -->
+        <div class="scorer-input-grid">
+            <!-- Drop Zone -->
+            <div class="drop-zone" id="dropZone">
+                <input type="file" id="pdfFileInput" accept="application/pdf" style="display: none;">
+                <i class="fas fa-file-pdf drop-zone-icon"></i>
+                <h3>Drop your academic PDF here</h3>
+                <p>or click to browse from your computer</p>
+                <div class="file-info-pill" id="fileInfoPill" style="display: none;">
+                    <i class="fas fa-check-circle"></i> <span id="fileNameSpan">No file selected</span>
                 </div>
-                <div class="prompt-content" id="analysisPrompt">Please analyze this assignment PDF. Give it a rating out of 10 based on structure, content, and clarity. Also, provide specific suggestions on where I can improve.</div>
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 1rem;">
-                    <i class="fas fa-lightbulb" style="color: #f59e0b;"></i> Tip: Copy this command first, then click one of the AI buttons below to paste it along with your PDF.
-                </p>
             </div>
 
-            <!-- Step 2: Choose AI Service -->
-            <div class="ai-grid reveal">
-                <a href="https://gemini.google.com" target="_blank" class="ai-btn gemini">
-                    <img src="Logos/google-gemini-icon.svg" alt="Gemini" class="ai-logo">
-                    <span>Gemini</span>
-                    <p>Ultra-fast AI</p>
-                </a>
-                <a href="https://claude.ai" target="_blank" class="ai-btn claude">
-                    <img src="Logos/claude-ai-icon.svg" alt="Claude" class="ai-logo">
-                    <span>Claude</span>
-                    <p>Analytical Insight</p>
-                </a>
-                <a href="https://chatgpt.com" target="_blank" class="ai-btn chatgpt">
-                    <img src="Logos/chatgpt-icon.svg" alt="ChatGPT" class="ai-logo">
-                    <span>ChatGPT</span>
-                    <p>Global Standard</p>
-                </a>
-                <a href="https://chat.deepseek.com" target="_blank" class="ai-btn deepseek">
-                    <img src="Logos/deepseek-logo-icon.svg" alt="DeepSeek" class="ai-logo">
-                    <span>DeepSeek</span>
-                    <p>Powerful Reasoning</p>
-                </a>
+            <!-- Configuration Card -->
+            <div class="config-card">
+                <div>
+                    <div class="auto-detect-box">
+                        <div class="auto-detect-header">
+                            <i class="fas fa-magic" style="color: #818cf8;"></i>
+                            <span>Document Category</span>
+                        </div>
+                        <div class="auto-detect-value" id="autoDetectBadge">
+                            <i class="fas fa-file-alt"></i> <span id="detectedTypeLabel">Auto-detected upon upload</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.45; margin-bottom: 1rem;">
+                        <i class="fas fa-shield-alt" style="color: #10b981;"></i> <strong>100% Private & Local:</strong> Your assignment never leaves your device. It is evaluated locally on your GPU/CPU.
+                    </div>
+                </div>
+
+                <button class="score-action-btn" id="scoreBtn" disabled>
+                    <i class="fas fa-bolt"></i> Evaluate & Score Document
+                </button>
             </div>
         </div>
+
+        <!-- Scoring Progress State -->
+        <div class="scoring-progress-card" id="progressCard">
+            <div class="progress-spinner"></div>
+            <h3 style="margin-bottom: 0.5rem;">Analyzing Academic Paper</h3>
+            <p id="progressStatus" style="color: var(--text-secondary); font-size: 0.95rem;">Extracting document structure and content...</p>
+        </div>
+
+        <!-- Scorecard Results Section -->
+        <div class="scorecard-container" id="scorecard">
+            <!-- Header Summary Card with Circular Gauge -->
+            <div class="scorecard-header-card">
+                <div class="score-gauge-wrapper">
+                    <svg class="gauge-svg" viewBox="0 0 160 160">
+                        <circle class="gauge-bg" cx="80" cy="80" r="70"></circle>
+                        <circle class="gauge-fill" id="gaugeFill" cx="80" cy="80" r="70"></circle>
+                    </svg>
+                    <div class="gauge-text">
+                        <div class="gauge-number" id="scoreNumber">--</div>
+                        <div class="gauge-max">out of 100</div>
+                    </div>
+                </div>
+
+                <div class="score-summary-info">
+                    <div class="score-grade-pill" id="gradeBadge">Grade: --</div>
+                    <h2 id="scoreTitle">Document Assessment</h2>
+                    <p id="scoreSummary">Your submission has been reviewed against DIU standard evaluation criteria.</p>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem;" id="evaluatorBadge"></div>
+                </div>
+
+                <div class="score-actions-toolbar">
+                    <button class="btn-report-export" id="exportBtn">
+                        <i class="fas fa-file-download"></i> Export Evaluation Report
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cover Page Status Check Banner -->
+            <div id="coverPageStatusContainer">
+                <!-- Dynamically populated: Tick mark if attached, warning if missing -->
+            </div>
+
+            <!-- Rubric Breakdown -->
+            <div class="rubric-breakdown-card">
+                <h3><i class="fas fa-tasks" style="color: #6366f1;"></i> DIU Academic Rubric Evaluation</h3>
+                <div class="rubric-items-list" id="rubricItemsList">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+
+            <!-- Strengths & Areas for Improvement Grid -->
+            <div class="insights-grid">
+                <div class="insight-card strengths">
+                    <h4><i class="fas fa-check-circle"></i> Key Strengths</h4>
+                    <ul class="insight-list" id="strengthsList">
+                        <!-- Dynamically populated -->
+                    </ul>
+                </div>
+                <div class="insight-card improvements">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Areas for Improvement</h4>
+                    <ul class="insight-list" id="improvementsList">
+                        <!-- Dynamically populated -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Actionable Recommendations Card -->
+            <div class="recommendations-card">
+                <h3><i class="fas fa-lightbulb"></i> Actionable Steps to Improve Your Score</h3>
+                <div class="recommendation-steps" id="recommendationSteps">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
     <!-- Toast Notification -->
@@ -189,33 +271,8 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
+    <!-- Scripts -->
     <script src="js/navigation.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const copyBtn = document.getElementById('copyPromptBtn');
-            const promptText = document.getElementById('analysisPrompt').innerText;
-            const toast = document.getElementById('toast');
-
-            copyBtn.addEventListener('click', () => {
-                navigator.clipboard.writeText(promptText).then(() => {
-                    // Show toast
-                    toast.classList.add('show');
-                    
-                    // Change button state
-                    const originalHTML = copyBtn.innerHTML;
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                    copyBtn.style.background = 'var(--success)';
-                    
-                    setTimeout(() => {
-                        toast.classList.remove('show');
-                        copyBtn.innerHTML = originalHTML;
-                        copyBtn.style.background = '';
-                    }, 2500);
-                }).catch(err => {
-                    console.error('Failed to copy: ', err);
-                });
-            });
-        });
-    </script>
+    <script src="js/pdf_scorer.js"></script>
 </body>
 </html>
